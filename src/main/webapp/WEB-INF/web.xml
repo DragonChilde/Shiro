@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <display-name>com.maven.springmvc</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+
+<!-- 配置spring -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring/applicationContext-*.xml</param-value>
+	</context-param>
+
+<!-- 配置监听器加载spring -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+<!-- 配置过滤器，解决post的乱码问题 -->
+	<filter>
+		<filter-name>encoding</filter-name>	
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+	  		<param-name>encoding</param-name>
+	  		<param-value>UTF-8</param-value>
+	  	</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+<!-- 配置SpringMVC -->
+	<servlet>
+		<servlet-name>ssm</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<!-- 此处不配置 默认找 /WEB-INF/[servlet-name]-servlet.xml -->
+			<param-value>classpath:spring/springmvc.xml</param-value>
+		</init-param>
+		<!-- 配置springmvc什么时候启动，参数必须为整数 -->
+		<!-- 如果为0或者大于0，则springMVC随着容器启动而启动 -->
+		<!-- 如果小于0，则在第一次请求进来的时候启动 -->
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>ssm</servlet-name>
+		<!-- 1:*.do *.action 拦截以.do结尾的请求 (不拦截 jsp png jpg .js .css) 2:/ 拦截所有请求 
+			（不拦截.jsp) 建议使用此种 方式 （拦截 .js.css .png) (放行静态资源） 3:/* 拦截所有请求（包括.jsp) 此种方式 不建议使用 -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- Shiro Filter is defined in the spring application context: -->
+	<!--
+	1. 配置  Shiro 的 shiroFilter.
+	2. DelegatingFilterProxy 实际上是 Filter 的一个代理对象. 默认情况下, Spring 会到 IOC 容器中查找和
+	<filter-name> 对应的 filter bean. 也可以通过 targetBeanName 的初始化参数来配置 filter bean 的 id.
+	-->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ </web-app>

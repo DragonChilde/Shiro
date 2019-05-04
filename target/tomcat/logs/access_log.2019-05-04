@@ -1,0 +1,8 @@
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:34 +0800] "GET /ssm/testShiroAnno HTTP/1.1" 302 - http-bio-9999-exec-2 57
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:35 +0800] "GET /ssm/login HTTP/1.1" 200 283 http-bio-9999-exec-3 458
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:39 +0800] "GET /ssm/checklogin?username=admin&password=123456 HTTP/1.1" 302 - http-bio-9999-exec-4 27
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:39 +0800] "GET /ssm/success HTTP/1.1" 200 325 http-bio-9999-exec-5 223
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:40 +0800] "GET /ssm/testShiroAnno HTTP/1.1" 302 - http-bio-9999-exec-6 17
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:40 +0800] "GET /ssm/success HTTP/1.1" 200 325 http-bio-9999-exec-7 2
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:42 +0800] "GET /ssm/user HTTP/1.1" 200 101 http-bio-9999-exec-8 46
+0:0:0:0:0:0:0:1 - - [04/May/2019:23:56:43 +0800] "GET /ssm/admin HTTP/1.1" 200 102 http-bio-9999-exec-9 42

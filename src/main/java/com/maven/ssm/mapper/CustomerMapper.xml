@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maven.ssm.mapper.CustomerMapper">
+
+<!-- private String custName;
+	private String custSource;
+	private String custIndustry;
+	private String custLevel; -->
+	<select id="getCountCustomerByQueryVo" parameterType="com.maven.ssm.pojo.QueryVo" resultType="int">
+		SELECT COUNT(1) FROM customer
+		<where>
+			<if test="custName != null and custName !=''">
+				AND cust_name LIKE "%"#{custName}"%"
+			</if>
+			<if test="custSource != null and custSource !=''">
+				AND cust_source = #{custSource}
+			</if>
+			<if test="custIndustry != null and custIndustry !=''">
+				AND cust_industry = #{custIndustry}
+			</if>
+			<if test="custLevel != null and custLevel !=''">
+				AND custLevel = #{custLevel}
+			</if>
+		</where>
+	</select>
+	<select id="getCustomerListByQueryVo" parameterType="com.maven.ssm.pojo.QueryVo" resultType="com.maven.ssm.pojo.Customer">
+		SELECT * FROM customer
+		<where>
+			<if test="custName != null and custName !=''">
+				AND cust_name LIKE "%"#{custName}"%"
+			</if>
+			<if test="custSource != null and custSource !=''">
+				AND cust_source = #{custSource}
+			</if>
+			<if test="custIndustry != null and custIndustry !=''">
+				AND cust_industry = #{custIndustry}
+			</if>
+			<if test="custLevel != null and custLevel !=''">
+				AND custLevel = #{custLevel}
+			</if>
+		</where>
+		limit #{start} , #{rows}
+		
+	</select>
+		
+		
+	<select id="getCustomerListByCustId" parameterType="int" resultType="com.maven.ssm.pojo.Customer">
+		SELECT * FROM customer
+		<where>
+			AND cust_id = #{custId}
+		</where>
+	</select>
+	
+	<update id="updateCustomerByCustId" parameterType="com.maven.ssm.pojo.Customer">
+		UPDATE customer
+		<set>
+			<if test="cust_name != null">
+				cust_name = #{cust_name}
+			</if>
+		</set>
+		WHERE cust_id =#{cust_id}
+	</update>
+	<delete id="deleteCustomerByCustId" parameterType="int">
+		DELETE FROM customer WHERE cust_id =#{cust_id}
+	</delete>
+</mapper>
