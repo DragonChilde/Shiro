@@ -1,6 +1,8 @@
 package com.maven.ssm.service.impl;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.session.Session;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -17,7 +19,9 @@ public class ShiroService {
 
     @RequiresRoles(value = {"admin"})
     public void testAutoMethod(){
-        System.out.println("testAutoMethod: "+new Date());
+        Session session = SecurityUtils.getSubject().getSession();
+        Object key = session.getAttribute("key");
+        System.out.println("testAutoMethod: "+new Date()+" session key: "+key);
     }
 
 }

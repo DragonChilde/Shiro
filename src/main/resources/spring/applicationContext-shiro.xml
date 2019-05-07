@@ -22,8 +22,34 @@
             </list>
         </property>
 
-        <!--<property name="rememberMeManager.cookie.maxAge" value="10"></property>-->
+        <!--<property name="rememberMeManager.cookie.maxAge" value="3600000"></property>-->
+        <!--<property name="rememberMeManager.cookie.name" value="shiroRememberme"/>-->
+        <property name="rememberMeManager" ref="rememberMeManager"/>
+        <property name="sessionManager" ref="sessionManager"/>
     </bean>
+
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cookie" ref="rememberCookie"/>
+    </bean>
+    <bean id="rememberCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="shiroRememberMe"/>
+        <property name="maxAge" value="3600000"/>
+        <property name="httpOnly" value="true"/>
+    </bean>
+
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager" >
+        <property name="sessionDAO" ref="sessionDao"/>
+        <property name="globalSessionTimeout" value="360000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+
+    </bean>
+    <bean id="sessionDao" class="com.maven.ssm.dao.SessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>
+        <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
+    </bean>
+    <bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
+
 
     <!-- Let's use some enterprise caching support for better performance.  You can replace this with any enterprise
          caching framework implementation that you like (Terracotta+Ehcache, Coherence, GigaSpaces, etc -->
@@ -40,6 +66,7 @@
              will be used.: -->
         <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
     </bean>
+
 
     <bean id="authenticator"
           class="org.apache.shiro.authc.pam.ModularRealmAuthenticator">

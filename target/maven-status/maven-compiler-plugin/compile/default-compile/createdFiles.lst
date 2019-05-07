@@ -14,5 +14,7 @@ com\maven\ssm\shiro\realms\ShiroRealm.class
 com\maven\ssm\mapper\BaseDictMapper.class
 com\maven\ssm\pojo\BaseDict.class
 com\maven\ssm\mapper\CustomerMapper.class
+com\maven\ssm\utils\SerializableUtils.class
+com\maven\ssm\dao\SessionDAO.class
 com\maven\ssm\service\BaseDictService.class
 com\maven\ssm\pojo\QueryVo.class

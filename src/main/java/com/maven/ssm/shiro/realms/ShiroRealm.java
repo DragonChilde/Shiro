@@ -3,6 +3,7 @@ package com.maven.ssm.shiro.realms;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.realm.AuthenticatingRealm;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -66,12 +67,15 @@ public class ShiroRealm extends AuthorizingRealm {
     }
 
     public static void main(String[] args) {
-        String algorithmName = "MD5";
-        String source = "123456";
-        Object salt = "test";
-        int hashIterations = 1024;
 
-        Object result = new SimpleHash(algorithmName, source, salt, hashIterations);
-        System.out.println(result);
+//        String algorithmName = "MD5";
+//        String source = "123456";
+//        Object salt = "test";
+//        int hashIterations = 1024;
+//
+//        Object result = new SimpleHash(algorithmName, source, salt, hashIterations);
+//        System.out.println(result);
+        String decode = Base64.decodeToString("4AvVhmFLUsOKTA3Kprsdag==");
+        System.out.println(decode);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @author Lee
  * @create 2019-05-02 17:01
@@ -21,7 +23,8 @@ public class LoginController {
     private ShiroService shiroService;
 
     @RequestMapping("/testShiroAnno")
-    public String testShiroAnno(){
+    public String testShiroAnno(HttpSession session){
+        session.setAttribute("key","123456");
         shiroService.testAutoMethod();
         return "redirect:/success";
     }
@@ -44,6 +47,7 @@ public class LoginController {
             // 把用户名和密码封装为 UsernamePasswordToken 对象
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
+            token.setRememberMe(true);
             try {
                 System.out.println("toen: " + token.hashCode());
                 // 执行登录.
